@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arvus Software - Desarrollo de Software</title>
+    <style>
+        /* Reset y estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #000000;
+            --color-dark-gray: #000000;
+            --color-gray: #000000;
+            --color-light-gray: #4e59f179;
+            --color-white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--color-dark-gray);
+            background-color: var(--color-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--color-dark-gray);
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(122, 94, 189, 0.95);
+            box-shadow: 0 2px 10px rgb(0, 0, 0);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-black);
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu li {
+            margin-left: 30px;
+        }
+
+        .menu a {
+            font-weight: 500;
+            color: var(--color-dark-gray);
+        }
+
+        .menu a:hover {
+            color: var(--color-black);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-dark-gray);
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background-color: var(--color-light-gray);
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h2 span {
+            color: var(--color-gray);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--color-gray);
+        }
+
+        /* Secciones generales */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--color-black);
+        }
+
+        .bg-light {
+            background-color: var(--color-light-gray);
+        }
+
+        .bg-dark {
+            background-color: var(--color-dark-gray);
+            color: var(--color-white);
+        }
+
+        .bg-dark .section-title {
+            color: var(--color-white);
+        }
+
+        /* Sobre Nosotros */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--color-light-gray);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .stat:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat h3 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--color-black);
+        }
+
+        /* Misión */
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-content p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value {
+            padding: 30px;
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .value:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .value h3 {
+            margin-bottom: 15px;
+            color: var(--color-black);
+        }
+
+        /* Visión */
+        .vision-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vision-content p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        /* Contacto */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-item {
+            margin-bottom: 30px;
+        }
+
+        .contact-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            color: var(--color-white);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-white);
+        }
+
+        .contact-form .btn {
+            background-color: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .contact-form .btn:hover {
+            background-color: var(--color-light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .values {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            
+            .menu.active {
+                display: flex;
+            }
+            
+            .menu li {
+                margin: 0;
+                padding: 10px 20px;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .values,
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Arvus Software</h1>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#mision">Misión</a></li>
+                    <li><a href="#vision">Visión</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Soluciones de Software <span>Innovadoras</span></h2>
+                <p>Transformamos ideas en experiencias digitales elegantes y funcionales</p>
+                <a href="#contacto" class="btn">Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-nosotros" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>En <strong>Arvus Software</strong>, somos un equipo apasionado de desarrolladores, diseñadores y estrategas digitales dedicados a crear soluciones de software excepcionales.</p>
+                    <p>Fundada en 2020, nuestra empresa se especializa en el desarrollo de aplicaciones web y móviles que combinan un diseño minimalista con una funcionalidad potente, proporcionando a nuestros clientes herramientas que realmente impulsan sus negocios.</p>
+                    <p>Nuestro enfoque combina tecnología de vanguardia con principios de diseño centrados en el usuario para crear experiencias digitales que destacan en el mercado actual.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>4</h3>
+                        <p>Proyectos completados</p>
+                    </div>
+                    <div class="stat">
+                        <h3>6</h3>
+                        <p>Profesionales</p>
+                    </div>
+                    <div class="stat">
+                        <h3>1</h3>
+                        <p>Años de experiencia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mision" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Nuestra Misión</h2>
+            <div class="mission-content">
+                <p>Nuestra misión es desarrollar soluciones de software innovadoras que transformen la manera en que nuestros clientes operan, mejorando su eficiencia y productividad a través de tecnología intuitiva y accesible.</p>
+                <p>Nos comprometemos a proporcionar un servicio excepcional, mantener los más altos estándares de calidad y construir relaciones duraderas basadas en la confianza y el valor mutuo.</p>
+                <div class="values">
+                    <div class="value">
+                        <h3>Innovación</h3>
+                        <p>Exploramos constantemente nuevas tecnologías y enfoques</p>
+                    </div>
+                    <div class="value">
+                        <h3>Calidad</h3>
+                        <p>Mantenemos los más altos estándares en cada línea de código</p>
+                    </div>
+                    <div class="value">
+                        <h3>Colaboración</h3>
+                        <p>Trabajamos junto a nuestros clientes como verdaderos socios</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="section">
+        <div class="container">
+            <h2 class="section-title">Nuestra Visión</h2>
+            <div class="vision-content">
+                <p>Nuestra visión de nuestro proyecto, es lograr que la página sea una página bastante funcional, innovadora la cual les permita a los usuarios crear sus propios diseños de ropa a su gusto, que no tenga desventajas y que resalte a comparacion de otras o que supere a las demás en ciertos aspectos que no tiene las demas paginas, y asi poder lograr un antes y un después en las páginas institucionales.
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Dirección</h3>
+                        <p>calle 8a #92-71 cuidad tintal </p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>cardenassuarez2006@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Teléfono</h3>
+                        <p>+57 (302) 7099 078</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Arvus Software. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Selección de elementos DOM
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.querySelector('.menu');
+        const header = document.getElementById('header');
+        const contactForm = document.getElementById('contactForm');
+
+        // Función para alternar el menú móvil
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            
+            // Cambiar apariencia del botón de menú
+            const spans = menuToggle.querySelectorAll('span');
+            if (menu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        }
+
+        // Event Listeners
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Cerrar el menú al hacer clic en un enlace
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (menu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Cambiar estilo del header al hacer scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Animación de revelación al hacer scroll
+        const revealElements = document.querySelectorAll('.section');
+
+        function checkReveal() {
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < triggerBottom) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Inicializar animaciones de revelación
+        window.addEventListener('load', () => {
+            revealElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            checkReveal();
+        });
+
+        window.addEventListener('scroll', checkReveal);
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Cálculo de la posición de destino con offset para el header fijo
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Manejo del formulario de contacto
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageInput = document.getElementById('message');
+                
+                // Validación simple
+                if (!nameInput.value || !emailInput.value || !messageInput.value) {
+                    alert('Por favor, complete todos los campos.');
+                    return;
+                }
+                
+                // Simulación de envío exitoso
+                alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+                
+                // Reiniciar formulario
+                contactForm.reset();
+            });
+        }
+
+        // Inicialización cuando el DOM está completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Añadir clase 'loaded' al body para posibles animaciones de carga
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
